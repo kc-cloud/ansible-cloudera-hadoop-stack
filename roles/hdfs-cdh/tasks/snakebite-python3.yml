@@ -1,0 +1,19 @@
+---
+
+- name: Install virtualenv
+  apt: name=virtualenv state=present
+
+- debug:
+    msg: '/home/{{ ansible_ssh_user }}'
+
+- name: Go to snakebite virtual environment folder
+  command: chdir='/home/{{ ansible_ssh_user }}' ls
+
+- name: Create snakebite virtualenv
+  command: virtualenv snakebite -p python3 # creates='snakebite'
+
+- name: Install snakebite in the virtualenv
+  pip:
+    name: git+https://github.com/jkafader/snakebite.git@feature/python3
+    virtualenv: '/home/{{ ansible_ssh_user }}/snakebite'
+    virtualenv_python: python3

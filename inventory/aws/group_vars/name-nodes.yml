@@ -1,0 +1,21 @@
+---
+
+#HDFS Parameters
+hdfs_name_node: 'cdh-master-node-1'
+hdfs_resource_manager: 'cdh-master-node-1'
+hdfs_masters: ['cdh-master-node-1']
+hdfs_slaves: ['ec2-34-228-65-75.compute-1.amazonaws.com']
+hdfs_port: '9100'
+hadoop_home_dir: '/usr/lib/hadoop-hdfs'
+mapreduce_jobhistory_address: '{{hdfs_resource_manager}}:9401'
+mapreduce_jobhistory_webapp_address: '{{hdfs_resource_manager}}:9402'
+yarn_resourcemanager_address: '{{hdfs_resource_manager}}:9501'
+yarn_resourcemanager_scheduler_address: '{{hdfs_resource_manager}}:9502'
+yarn_resourcemanager_admin_address: '{{hdfs_resource_manager}}:9503'
+yarn_resourcemanager_webapp_address: '{{hdfs_resource_manager}}:9504'
+yarn_resourcemanager_resource_tracker_address: '{{hdfs_resource_manager}}:9505'
+namenode_http_address: '0.0.0.0:9101'
+secondary_http_address: '0.0.0.0:9102'
+dfs_datanode_address: '0.0.0.0:9201'
+dfs_datanode_ipc_address: '0.0.0.0:9202'
+dfs_datanode_http_address: '0.0.0.0:9300'

@@ -1,0 +1,12 @@
+---
+
+- name: Install Java
+  include_tasks: java.yml
+  when: use_existing_java is defined and use_existing_java == False
+
+- name: Install HDFS
+  include_tasks: hdfs.yml
+
+- name: Install Snakebite
+  include_tasks: snakebite-python3.yml
+  when: snakebite_requied is defined and snakebite_requied == True

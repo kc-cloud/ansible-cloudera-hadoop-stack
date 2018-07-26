@@ -1,0 +1,118 @@
+<configuration>
+  <property>
+      <name>dfs.permissions.superusergroup</name>
+      <value>hadoop</value>
+  </property>
+  <property>
+     <name>dfs.namenode.name.dir</name>
+     <value>{{dfs_namenode_name_dir}}</value>
+  </property>
+
+{% if datanode_data_dirs is defined and datanode_data_dirs|length > 0 %}
+   <property>
+     <name>dfs.datanode.data.dir</name>
+     <value>{{ datanode_data_dirs|join(', ') }}</value>
+  </property>
+{% endif %}
+
+  <property>
+     <name>dfs.namenode.support.allow.format</name>
+     <value>false</value>
+  </property>
+
+<!-- Use ports which are restricted to IA datacenter access only. -->
+{% if namenode_http_address is defined and namenode_http_address != '' %}
+  <property>
+    <name>dfs.namenode.http-address</name>
+    <value>{{namenode_http_address}}</value>
+  </property>
+{% endif %}
+
+ <!--
+    Increase number of threads handling connections from slaves.
+    Default is 10, but with 12 super-beefy nodes in the cluster, 20 is required
+ -->
+{% if namenode_handler_count is defined and namenode_handler_count != '' %}
+  <property>
+    <name>dfs.namenode.handler.count</name>
+    <value>{{namenode_handler_count}}</value>
+  </property>
+{% endif %}
+
+ <!--
+    Enable basic file permissions.  Default is true, but disabling
+    it isn't as scary as it sounds.  It has the same effect as all
+    dirs & files having global read/write; that is, any user can
+    add/delete/rename any file, no matter who owns it.
+ -->
+{% if dfs_basic_file_permissions_enabled is defined and dfs_basic_file_permissions_enabled != '' %}
+  <property>
+    <name>dfs.permissions.enabled</name>
+    <value>{{dfs_basic_file_permissions_enabled}}</value>
+  </property>
+{% endif %}
+
+  <!-- Allow for balancing to use 1GB/sec -->
+{% if dfs_datanode_balance_bandwidthPerSec is defined and dfs_datanode_balance_bandwidthPerSec != '' %}
+  <property>
+    <name>dfs.datanode.balance.bandwidthPerSec</name>
+    <value>{{dfs_datanode_balance_bandwidthPerSec}}</value>
+  </property>
+{% endif %}
+
+   <!-- ************************************************** -->
+  <!-- Secondary Namenode                                 -->
+  <!-- ************************************************** -->
+
+  <!-- Use ports which are restricted to IA datacenter access only. -->
+{% if secondary_http_address is defined and secondary_http_address != '' %}
+  <property>
+    <name>dfs.namenode.secondary.http-address</name>
+    <value>{{secondary_http_address}}</value>
+  </property>
+{% endif %}
+
+{% if dfs_namenode_checkpoint_dir is defined and dfs_namenode_checkpoint_dir != '' %}
+ <property>
+    <name>dfs.namenode.checkpoint.dir</name>
+    <value>{{dfs_namenode_checkpoint_dir}}</value>
+  </property>
+{% endif %}
+
+ <!-- Use ports which are restricted to IA datacenter access only -->
+{% if dfs_datanode_address is defined and dfs_datanode_address != '' %}
+  <property><name>dfs.datanode.address</name><value>{{dfs_datanode_address}}</value></property>
+{% endif %}
+
+{% if dfs_datanode_ipc_address is defined and dfs_datanode_ipc_address != '' %}
+  <property><name>dfs.datanode.ipc.address</name><value>{{dfs_datanode_ipc_address}}</value></property>
+{% endif %}
+
+{% if dfs_datanode_http_address is defined and dfs_datanode_http_address != '' %}
+  <property><name>dfs.datanode.http.address</name><value>{{dfs_datanode_http_address}}</value></property>
+{% endif %}
+
+ <!-- How many of the directories listed above can be offline, but
+       the service still starts.  This is useful if one (or more)
+       drives fails or drops-off the backplane; the service will still
+       start without them.  -->
+{% if dfs_datanode_failed_volumes_tolerated is defined and dfs_datanode_failed_volumes_tolerated != '' %}
+  <property>
+    <name>dfs.datanode.failed.volumes.tolerated</name>
+    <value>{{dfs_datanode_failed_volumes_tolerated}}</value>
+  </property>
+{% endif %}
+
+ <!-- Saw a lot of error messages about socket timouts and all I
+       could find on the net suggested setting this to 0. -->
+  <property>
+    <name>dfs.datanode.socket.write.timeout</name>
+    <value>0</value>
+  </property>
+
+  <property>
+  <name>dfs.datanode.max.xcievers</name>
+  <value>4096</value>
+  </property>
+
+</configuration>

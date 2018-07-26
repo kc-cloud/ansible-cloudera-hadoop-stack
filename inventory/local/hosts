@@ -1,0 +1,11 @@
+[client-nodes]
+localhost  ansible_user=osboxes
+
+[name-nodes]
+cdh-master-node-1  ansible_user=osboxes
+cdh-master-node-2  ansible_user=osboxes
+
+[worker-nodes]
+cdh-worker-node-1  ansible_user=osboxes
+cdh-worker-node-2  ansible_user=osboxes
+cdh-worker-node-3  ansible_user=osboxes

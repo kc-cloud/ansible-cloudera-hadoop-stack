@@ -1,0 +1,21 @@
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://{{hdfs_name_node}}:{{hdfs_port}}</value>
+    </property>
+      <property>
+        <name>io.file.buffer.size</name>
+        <value>65536</value>
+      </property>
+
+  <property>
+    <name>fs.trash.interval</name>
+    <value>60</value>
+  </property>
+
+  <property>
+  <name>io.compression.codecs</name>
+  <value>org.apache.hadoop.io.compress.DefaultCodec,org.apache.hadoop.io.compress.GzipCodec,org.apache.hadoop.io.compress.BZip2Codec,com.hadoop.compression.lzo.LzoCodec,com.hadoop.compression.lzo.LzopCodec,org.apache.hadoop.io.compress.SnappyCodec</value>
+  </property>
+
+</configuration>

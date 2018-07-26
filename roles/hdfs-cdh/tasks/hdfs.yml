@@ -1,0 +1,60 @@
+---
+
+- name: Get CDH repo list
+  template:
+    src: 'cloudera.list.j2'
+    dest: '/etc/apt/sources.list.d/local-cloudera.list'
+    mode: 0644
+
+- name: Download Add an Apt signing key
+  apt_key:
+    url: https://archive.cloudera.com/cdh5/ubuntu/xenial/amd64/cdh/archive.key
+    state: present
+
+- name: Update repositories cache and install packages
+  apt:
+    name: '{{item}}'
+    update_cache: yes
+  with_items: '{{cdh_packages}}'
+
+- name: Set hadoop environment variables.
+  template:
+    src: hadoop.sh.j2
+    dest: /etc/profile.d/hadoop.sh
+    mode: 0644
+
+- name: Source environment variables
+  shell: source /etc/profile
+  args:
+    executable: /bin/bash
+
+- name: Configure hadoop
+  template:
+    src: '{{item.src}}'
+    dest: '{{item.dest}}'
+    mode: 0644
+  with_items:
+    - { src: core-site.xml.j2, dest: '/etc/hadoop/conf/core-site.xml' }
+    - { src: hdfs-site.xml.j2, dest: '/etc/hadoop/conf/hdfs-site.xml' }
+    - { src: mapred-site.xml.j2, dest: '/etc/hadoop/conf/mapred-site.xml' }
+    - { src: yarn-site.xml.j2, dest: '/etc/hadoop/conf/yarn-site.xml' }
+    - { src: masters.j2, dest: '/etc/hadoop/conf/masters' }
+    - { src: slaves.j2, dest: '/etc/hadoop/conf/slaves' }
+
+- name: Set JAVA_HOME to Hadoop environment file
+  lineinfile:
+    path: '/etc/default/bigtop-utils'
+    regexp: '^# export JAVA_HOME'
+    line: 'export JAVA_HOME={{java_home}}'
+
+- name: Wait for service to start
+  wait_for:
+    host: "{{hdfs_master}}"
+    port: "{{hdfs_port}}"
+    delay: 5
+    connect_timeout: 10
+  ignore_errors: True
+
+- name: Display Success Message
+  debug:
+    msg: 'HDFS Client Packages successfully installed'

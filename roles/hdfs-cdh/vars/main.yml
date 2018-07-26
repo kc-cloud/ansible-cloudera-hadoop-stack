@@ -1,0 +1,5 @@
+---
+
+# JDK parameters
+java_package: 'openjdk-8-jdk'
+java_home: '/usr/lib/jvm/java-8-openjdk-amd64'

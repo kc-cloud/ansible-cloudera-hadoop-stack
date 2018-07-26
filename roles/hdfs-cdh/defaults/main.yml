@@ -1,0 +1,62 @@
+---
+
+# Java Parameters
+use_existing_java: True
+java_home: '/usr/lib/jvm/java-8-openjdk-amd64'
+
+# Cloudera Parameters
+cdh_version: '5.15.0'
+cdh_packages:
+  - avro-libs
+  - bigtop-jsvc
+  - bigtop-utils
+  - hadoop
+  - hadoop-0.20-mapreduce
+  - hadoop-client
+  - hadoop-hdfs
+  - hadoop-mapreduce
+  - hadoop-yarn
+  - parquet
+  - parquet-format
+
+# Snakebite installation
+snakebite_requied: True
+
+#HDFS Parameters
+hdfs_name_node: 'cdh-master-node-1'
+hdfs_resource_manager: 'cdh-master-node-1'
+hdfs_masters: ['cdh-master-node-1']
+hdfs_slaves: ['localhost']
+hdfs_port: '9100'
+hadoop_home_dir: '/usr/lib/hadoop-hdfs'
+mapreduce_jobhistory_address: '{{hdfs_resource_manager}}:9401'
+mapreduce_jobhistory_webapp_address: '{{hdfs_resource_manager}}:9402'
+yarn_resourcemanager_address: '{{hdfs_resource_manager}}:9501'
+yarn_resourcemanager_scheduler_address: '{{hdfs_resource_manager}}:9502'
+yarn_resourcemanager_admin_address: '{{hdfs_resource_manager}}:9503'
+yarn_resourcemanager_webapp_address: '{{hdfs_resource_manager}}:9504'
+yarn_resourcemanager_resource_tracker_address: '{{hdfs_resource_manager}}:9505'
+namenode_http_address: '0.0.0.0:9101'
+secondary_http_address: '0.0.0.0:9102'
+dfs_datanode_address: '0.0.0.0:9201'
+dfs_datanode_ipc_address: '0.0.0.0:9202'
+dfs_datanode_http_address: '0.0.0.0:9300'
+dfs_datanode_failed_volumes_tolerated: 29
+dfs_namenode_name_dir: '/hdfs/name'
+dfs_namenode_checkpoint_dir: '/hdfs/checkpoint'
+yarn_nodemanager_remote_app_log_dir: '/hdfs-nm/logs'
+yarn_app_mapreduce_am_staging_dir: '/hdfs-mr'
+mapreduce_jobhistory_intermediate_done_dir: '//hdfs-mr/tmp'
+mapreduce_jobhistory_done_dir: '/hdfs-mr/done'
+datanode_data_dirs:
+  - /dn00/hdfs
+  - /dn01/hdfs
+  - /dn02/hdfs
+yarn_nodemanager_local_dirs:
+  - /dn00/hadoop/yarn/local
+  - /dn01/hadoop/yarn/local
+  - /dn02/hadoop/yarn/local
+yarn_nodemanager_log_dirs:
+  - /dn00/hadoop/yarn/logs
+  - /dn01/hadoop/yarn/logs
+  - /dn02/hadoop/yarn/logs

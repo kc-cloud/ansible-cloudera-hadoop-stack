@@ -1,0 +1,30 @@
+---
+
+- hosts: name-nodes
+  gather_facts: true
+  become: yes
+  roles:
+    - { role: hdfs-cdh }
+  vars:
+    use_existing_java: False
+    snakebite_requied: True
+    cdh_version: '5.15.0'
+    cdh_packages:
+      - avro-libs
+      - bigtop-jsvc
+      - bigtop-utils
+      - hadoop
+      - hadoop-0.20-mapreduce
+      - hadoop-client
+      - hadoop-hdfs
+      - hadoop-mapreduce
+      - hadoop-yarn
+      - parquet
+      - parquet-format
+      - hadoop-hdfs-journalnode
+      - hadoop-hdfs-namenode
+      - hadoop-hdfs-secondarynamenode
+      - hadoop-hdfs-zkfc
+      - hadoop-yarn-nodemanager
+      - hadoop-yarn-proxyserver
+      - hadoop-yarn-resourcemanager

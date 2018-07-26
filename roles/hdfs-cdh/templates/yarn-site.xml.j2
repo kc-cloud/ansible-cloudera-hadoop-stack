@@ -1,0 +1,128 @@
+<configuration>
+  <property>
+    <name>yarn.nodemanager.aux-services</name>
+    <value>mapreduce_shuffle</value>
+  </property>
+
+  <property>
+    <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
+    <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+  </property>
+
+{% if yarn_resourcemanager_address is defined and yarn_resourcemanager_address != '' %}
+  <property>
+    <name>yarn.resourcemanager.address</name>
+    <value>{{yarn_resourcemanager_address}}</value>
+  </property>
+{% endif %}
+
+{% if yarn_resourcemanager_scheduler_address is defined and yarn_resourcemanager_scheduler_address != '' %}
+  <property>
+    <name>yarn.resourcemanager.scheduler.address</name>
+    <value>{{yarn_resourcemanager_scheduler_address}}</value>
+  </property>
+{% endif %}
+
+{% if yarn_resourcemanager_admin_address is defined and yarn_resourcemanager_admin_address != '' %}
+  <property>
+    <name>yarn.resourcemanager.admin.address</name>
+    <value>{{yarn_resourcemanager_admin_address}}</value>
+  </property>
+{% endif %}
+
+{% if yarn_resourcemanager_webapp_address is defined and yarn_resourcemanager_webapp_address != '' %}
+  <property>
+    <name>yarn.resourcemanager.webapp.address</name>
+    <value>{{yarn_resourcemanager_webapp_address}}</value>
+  </property>
+{% endif %}
+
+{% if yarn_resourcemanager_resource_tracker_address is defined and yarn_resourcemanager_resource_tracker_address != '' %}
+  <property>
+    <name>yarn.resourcemanager.resource-tracker.address</name>
+    <value>{{yarn_resourcemanager_resource_tracker_address}}</value>
+  </property>
+{% endif %}
+
+  <property>
+   <name>yarn.resourcemanager.scheduler.class</name>
+   <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler</value>
+  </property>
+
+  <property>
+    <description>Classpath for typical applications.</description>
+    <name>yarn.application.classpath</name>
+    <value>
+        $HADOOP_CONF_DIR,
+        $HADOOP_COMMON_HOME/*,$HADOOP_COMMON_HOME/lib/*,
+        $HADOOP_HDFS_HOME/*,$HADOOP_HDFS_HOME/lib/*,
+        $HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,
+        $HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*
+    </value>
+  </property>
+
+  <property>
+    <name>yarn.log-aggregation-enable</name>
+    <value>true</value>
+  </property>
+
+{% if yarn_nodemanager_local_dirs is defined and yarn_nodemanager_local_dirs|length > 0 %}
+  <property>
+    <description>List of directories to store localized files in.</description>
+    <name>yarn.nodemanager.local-dirs</name>
+    <value>{{ yarn_nodemanager_local_dirs|join(', ') }}</value>
+  </property>
+{% endif %}
+
+{% if yarn_nodemanager_log_dirs is defined and yarn_nodemanager_log_dirs|length > 0 %}
+  <property>
+    <description>Where to store container logs.</description>
+    <name>yarn.nodemanager.log-dirs</name>
+    <value>{{ yarn_nodemanager_log_dirs|join(', ') }}</value>
+  </property>
+{% endif %}
+
+{% if yarn_nodemanager_remote_app_log_dir is defined and yarn_nodemanager_remote_app_log_dir != '' %}
+  <property>
+    <description>Where to aggregate logs to.</description>
+    <name>yarn.nodemanager.remote-app-log-dir</name>
+    <value>{{yarn_nodemanager_remote_app_log_dir}}</value>
+  </property>
+{% endif %}
+
+  <property>
+    <name>yarn.scheduler.minimum-allocation-mb</name>
+    <value>3584</value>
+  </property>
+
+  <property>
+    <name>yarn.scheduler.maximum-allocation-mb</name>
+    <value>141312</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.resource.memory-mb</name>
+    <value>141312</value>
+  </property>
+
+{% if yarn_app_mapreduce_am_staging_dir is defined and yarn_app_mapreduce_am_staging_dir != '' %}
+  <property>
+    <name>yarn.app.mapreduce.am.staging-dir</name>
+    <value>{{yarn_app_mapreduce_am_staging_dir}}</value>
+  </property>
+{% endif %}
+
+{% if mapreduce_jobhistory_intermediate_done_dir is defined and mapreduce_jobhistory_intermediate_done_dir != '' %}
+  <property>
+    <name>mapreduce.jobhistory.intermediate-done-dir</name>
+    <value>{{mapreduce_jobhistory_intermediate_done_dir}}</value>
+  </property>
+{% endif %}
+
+{% if mapreduce_jobhistory_done_dir is defined and mapreduce_jobhistory_done_dir != '' %}
+  <property>
+    <name>mapreduce.jobhistory.done-dir</name>
+    <value>{{mapreduce_jobhistory_done_dir}}</value>
+  </property>
+{% endif %}
+
+</configuration>

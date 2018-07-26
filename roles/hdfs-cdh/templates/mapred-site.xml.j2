@@ -1,0 +1,153 @@
+<configuration>
+
+  <property>
+    <name>mapreduce.framework.name</name>
+    <value>yarn</value>
+  </property>
+
+  <property>
+    <name>mapreduce.reduce.java.opts</name>
+    <value>-Xmx2867m</value>
+  </property>
+
+  <property>
+    <name>mapreduce.map.java.opts</name>
+    <value>-Xmx2867m</value>
+  </property>
+
+  <property>
+    <name>mapreduce.reduce.memory.mb</name>
+    <value>3584</value>
+  </property>
+
+  <property>
+    <name>mapreduce.map.memory.mb</name>
+    <value>3584</value>
+  </property>
+
+  <!-- Of the 2867MB heap, use 1024MB for sort-merge buffer.  There
+       seems to be an upper-limit to this value.  Anything over 1024
+       yields an error in the Hadoop logs.  -->
+  <property>
+    <name>mapreduce.task.io.sort.mb</name>
+    <value>1024</value>
+  </property>
+
+  <property>
+    <name>yarn.app.mapreduce.am.resource.mb</name>
+    <value>3584</value>
+  </property>
+
+  <property>
+    <name>yarn.app.mapreduce.am.command-opts</name>
+    <value>-Xmx2867m</value>
+  </property>
+
+  <property>
+    <name>mapreduce.task.io.sort.mb</name>
+    <value>1024</value>
+  </property>
+
+  <property>
+    <name>mapreduce.cluster.local.dir</name>
+    <value>/tmp/hadoop/local</value>
+  </property>
+
+  <property>
+    <name>mapreduce.cluster.temp.dir</name>
+    <value>/tmp/hadoop/temp</value>
+  </property>
+
+  <property>
+    <name>mapreduce.reduce.shuffle.parallelcopies</name>
+    <value>50</value>
+  </property>
+
+  <property>
+    <name>mapreduce.tasktracker.http.threads</name>
+    <value>80</value>
+  </property>
+  <!-- Custom values for super-beefy black-rack nodes (won't be used for YARN?) -->
+  <property>
+    <name>mapreduce.tasktracker.map.tasks.maximum</name>
+    <value>16</value>
+  </property>
+
+  <property>
+    <name>mapreduce.tasktracker.reduce.tasks.maximum</name>
+    <value>8</value>
+  </property>
+
+  <property>
+    <name>mapreduce.job.jvm.numtasks</name>
+    <value>-1</value>
+  </property>
+
+  <!-- Disable speculative execution for both map and reduce.
+       Individual jobs can enable it if desired.  -->
+  <property>
+    <name>mapreduce.map.speculative</name>
+    <value>false</value>
+  </property>
+
+  <property>
+    <name>mapreduce.reduce.speculative</name>
+    <value>false</value>
+  </property>
+
+ <!-- Don't start any reducers until all the maps are done. -->
+  <property>
+    <name>mapreduce.job.reduce.slowstart.completedmaps</name>
+    <value>1.0</value>
+  </property>
+
+  <property>
+    <name>mapreduce.reduce.merge.inmem.threshold</name>
+    <value>0</value>
+  </property>
+
+  <!-- Sort-merge up to 100 files at once, not 10 at a time (default).-->
+  <property>
+    <name>mapreduce.task.io.sort.factor</name>
+    <value>100</value>
+  </property>
+
+ <!-- Enable compression of intermediate files between the map and reduce stages, i.e. the output of the map.
+    -->
+  <property>
+    <name>mapreduce.map.output.compress</name>
+    <value>true</value>
+  </property>
+
+  <!-- Use the SNAPPY compression codec.  SNAPPY is bundled with CDH3u3. -->
+  <property>
+    <name>mapreduce.map.output.compress.codec</name>
+    <value>org.apache.hadoop.io.compress.SnappyCodec</value>
+  </property>
+
+  <!-- Use BLOCK rather than RECORD compression for the intermediate map output. -->
+  <property>
+    <name>mapreduce.output.fileoutputformat.compress.type</name>
+    <value>BLOCK</value>
+  </property>
+
+{% if mapreduce_jobhistory_address is defined and mapreduce_jobhistory_address != '' %}
+  <property>
+    <name>mapreduce.jobhistory.address</name>
+    <value>{{mapreduce_jobhistory_address}}</value>
+  </property>
+{% endif %}
+
+{% if mapreduce_jobhistory_webapp_address is defined and mapreduce_jobhistory_webapp_address != '' %}
+  <property>
+    <name>mapreduce.jobhistory.webapp.address</name>
+    <value>{{mapreduce_jobhistory_webapp_address}}</value>
+  </property>
+{% endif %}
+
+  <property>
+    <name>mapreduce.tasktracker.outofband.heartbeat</name>
+    <value>true</value>
+  </property>
+
+</configuration>
