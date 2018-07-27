@@ -15,5 +15,5 @@ Tested with python 2.7 in the following platforms
    * download the repository
    * cd ansible-cloudera-hadoop-stack
    * modify files under inventory/local/ based on your environment
-   * modify install-hdfs-client-nodes.yml for your own package selection per node and node type
+   * modify _install-hdfs-client-nodes.yml_ for your own package selection per node and node type
    * execute _ansible-playbook -i inventory/local install-hdfs-client-nodes.yml_
