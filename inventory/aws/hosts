@@ -1,6 +1,0 @@
-[client-nodes]
-ec2-34-228-65-75.compute-1.amazonaws.com  ansible_user=ubuntu ansible_ssh_private_key_file="~/.ssh/kc-cloud.pem"
-
-[name-nodes]
-
-[worker-nodes]
