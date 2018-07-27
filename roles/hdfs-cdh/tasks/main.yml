@@ -8,5 +8,5 @@
   include_tasks: hdfs.yml
 
 - name: Install Snakebite
-  include_tasks: snakebite-python3.yml
+  include_tasks: snakebite.yml
   when: snakebite_requied is defined and snakebite_requied == True
