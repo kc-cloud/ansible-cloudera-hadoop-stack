@@ -1,6 +1,6 @@
 # ansible-cloudera-hadoop-stack
 
-This contains a role hdfs-cdh, which can be used to install Cloudera Hadoop ecosystem. This role installs:
+This contains a role hdfs-cdh, which can be used to installs cloudera distribution of Hadoop. BUT, IT DOESN'T SETUP CLOUDERA MANAGER. This role installs:
 
 * java (optionally)
 * snakebite (optionally) - python HDFS client that uses protobuf for communicating with the NameNode and comes in the form of a library and a command line interface (https://github.com/spotify/snakebite)
