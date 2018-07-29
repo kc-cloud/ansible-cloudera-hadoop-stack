@@ -36,7 +36,7 @@
     - { role: hdfs-cdh }
   vars:
     use_existing_java: False
-    snakebite_requied: True
+    snakebite_requied: False
     cdh_version: '5.15.0'
     cdh_packages:
       - avro-libs
